@@ -19,7 +19,7 @@ functions:
     handler: dist/user-api/handler.handler
     events:
       - http:
-          path: email/{proxy+}
+          path: user/{proxy+}
           method: any 
           cors: true
 
