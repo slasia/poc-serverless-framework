@@ -1,0 +1,29 @@
+service: lambda-layers
+org: slasia
+app: poc
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+
+layers:
+  common:
+    path: .
+    compatibleRuntimes:
+      - nodejs20.x
+    retain: false
+    allowedAccounts:
+      - '*'
+
+plugins:
+  - serverless-localstack
+
+custom:
+  localstack:
+    stages:
+      - local
+    lambda:
+      mountCode: True
+
+

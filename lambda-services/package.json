@@ -1,11 +1,13 @@
 {
-  "name": "poc-lambda-express-auroraPG-lambda-layer",
+  "name": "poc-serverless-framework",
   "version": "1.0.0",
   "description": "",
   "scripts": {
     "build": "rimraf dist && tsc -p tsconfig.build.json",
+    "createS3Bucket:local": "aws --endpoint-url=http://localhost:4566 s3 mb s3://poc-serverless-framework",
+    "deploy:local": "serverless deploy --stage=local",
+    "start": "npm-run-all --parallel build --serial deploy:local",
     "format": "prettier --write \"src/**/*.ts\"",
-    "start": "npm run build && sls offline start",
     "lint": "tslint -p tsconfig.json -c tslint.json",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -14,17 +16,20 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "express": "^4.18.2",
-    "serverless-http": "^3.1.1"
+    "express": "^4.17.1",
+    "serverless-http": "^2.7.0"
   },
   "devDependencies": {
+    "@types/node": "^20.11.24",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "eslint": "^8.57.0",
     "eslint-config-standard-with-typescript": "^43.0.1",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-n": "^16.6.2",
     "eslint-plugin-promise": "^6.1.1",
+    "npm-run-all": "^4.1.5",
     "prettier": "3.2.5",
+    "serverless-localstack": "^1.2.0",
     "serverless-offline": "^13.3.3",
     "typescript": "^5.3.3"
   }
