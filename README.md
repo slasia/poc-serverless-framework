@@ -1,106 +1,68 @@
-<!--
-title: 'Serverless Framework Node Express API on AWS'
-description: 'This template demonstrates how to develop and deploy a simple Node Express API running on AWS Lambda using the traditional Serverless Framework.'
-layout: Doc
-framework: v3
-platform: AWS
-language: nodeJS
-priority: 1
-authorLink: 'https://github.com/serverless'
-authorName: 'Serverless, inc.'
-authorAvatar: 'https://avatars1.githubusercontent.com/u/13742415?s=200&v=4'
--->
 
-# Serverless Framework Node Express API on AWS
+# POC Serverless Framework
 
-This template demonstrates how to develop and deploy a simple Node Express API service running on AWS Lambda using the traditional Serverless Framework.
+## Description
+This is the README file for the "POC Serverless Framework" project, designed to demonstrate how to set up and run a Serverless environment for APIs using Node.js, Express, and the Serverless Framework.
 
-## Anatomy of the template
+## Prerequisites
+Before starting, make sure you have Node.js installed on your machine. You can download and install it from [nodejs.org](https://nodejs.org/). Additionally, you will need an AWS account and your access credentials to deploy functions to AWS Lambda.
 
-This template configures a single function, `api`, which is responsible for handling all incoming requests thanks to the `httpApi` event. To learn more about `httpApi` event configuration options, please refer to [httpApi event docs](https://www.serverless.com/framework/docs/providers/aws/events/http-api/). As the event is configured in a way to accept all incoming requests, `express` framework is responsible for routing and handling requests internally. Implementation takes advantage of `serverless-http` package, which allows you to wrap existing `express` applications. To learn more about `serverless-http`, please refer to corresponding [GitHub repository](https://github.com/dougmoscrop/serverless-http).
+## Installation of Serverless
 
-## Usage
+To install the Serverless Framework and configure your environment, follow these steps:
 
-### Deployment
+1. **Serverless Framework Installation**:
+   Execute the following command in your terminal to install the Serverless Framework globally:
+   ```bash
+   npm install -g serverless
+   ```
 
-Install dependencies with:
+2. **AWS Credentials Configuration**:
+   Set up your AWS credentials to allow Serverless to deploy resources in your account:
+   ```bash
+   serverless config credentials --provider aws --key <yourAccessKeyID> --secret <yourSecretAccessKey>
+   ```
+   Replace `<yourAccessKeyID>` and `<yourSecretAccessKey>` with your own AWS credentials.
 
-```
-npm install
-```
+## Running Serverless Offline
 
-and then deploy with:
+To run your services locally and test your lambda functions without deploying them, you can use Serverless Offline:
 
-```
+1. Install necessary dependencies by running:
+   ```bash
+   npm install
+   ```
+
+2. Start Serverless Offline with:
+   ```bash
+   npm start
+   ```
+   This will allow you to access your functions via `http://localhost:3000` by default.
+
+## Using Postman to Test Endpoints
+
+Once your service is running with Serverless Offline, you can use Postman to send requests to your endpoints:
+
+1. Open Postman and create a new request.
+2. Select the appropriate method (GET, POST, etc.) and use the local URL of your service. Example: `http://localhost:3000/user`.
+3. Send the request and observe the response.
+
+## Available Endpoints
+
+This project includes the following example endpoints that you can test:
+
+- `GET dev//user`
+- `GET dev//user/path`
+- `GET dev/email`
+- `GET dev/email/path`
+
+Please replace the path according to the endpoint you wish to test.
+
+## Deployment
+
+To deploy your functions to AWS Lambda, execute the following command:
+```bash
 serverless deploy
 ```
 
-After running deploy, you should see output similar to:
-
-```bash
-Deploying aws-node-express-api-project to stage dev (us-east-1)
-
-✔ Service deployed to stack aws-node-express-api-project-dev (196s)
-
-endpoint: ANY - https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com
-functions:
-  api: aws-node-express-api-project-dev-api (766 kB)
-```
-
-_Note_: In current form, after deployment, your API is public and can be invoked by anyone. For production deployments, you might want to configure an authorizer. For details on how to do that, refer to [`httpApi` event docs](https://www.serverless.com/framework/docs/providers/aws/events/http-api/).
-
-### Invocation
-
-After successful deployment, you can call the created application via HTTP:
-
-```bash
-curl https://xxxxxxx.execute-api.us-east-1.amazonaws.com/
-```
-
-Which should result in the following response:
-
-```
-{"message":"Hello from root!"}
-```
-
-Calling the `/hello` path with:
-
-```bash
-curl https://xxxxxxx.execute-api.us-east-1.amazonaws.com/hello
-```
-
-Should result in the following response:
-
-```bash
-{"message":"Hello from path!"}
-```
-
-If you try to invoke a path or method that does not have a configured handler, e.g. with:
-
-```bash
-curl https://xxxxxxx.execute-api.us-east-1.amazonaws.com/nonexistent
-```
-
-You should receive the following response:
-
-```bash
-{"error":"Not Found"}
-```
-
-### Local development
-
-It is also possible to emulate API Gateway and Lambda locally by using `serverless-offline` plugin. In order to do that, execute the following command:
-
-```bash
-serverless plugin install -n serverless-offline
-```
-
-It will add the `serverless-offline` plugin to `devDependencies` in `package.json` file as well as will add it to `plugins` in `serverless.yml`.
-
-After installation, you can start local emulation with:
-
-```
-serverless offline
-```
-
-To learn more about the capabilities of `serverless-offline`, please refer to its [GitHub repository](https://github.com/dherault/serverless-offline).
+Follow the instructions and command output to see the URL of your deployed functions.

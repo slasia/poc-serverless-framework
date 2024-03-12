@@ -1,11 +1,10 @@
 import ServerlessHttp from "serverless-http";
 const express = require('express');
 const app = express();
-const { sayHello } = require('/opt/layer/nodejs/common');
 const emailRouter = express.Router();
 
 emailRouter.get('/', (req: any, res: any, next: any) => {
-  const message = sayHello('email');
+  const message = "sayHello('email');"
   return res.status(200).json({
     message,
   });
