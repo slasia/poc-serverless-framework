@@ -8,6 +8,17 @@ provider:
   name: aws
   runtime: nodejs20.x
 
+environment:
+   TYPEORM_CONNECTION: postgres
+   TYPEORM_HOST: ${env:DB_HOST}
+   TYPEORM_USERNAME: ${env:DB_USER}
+   TYPEORM_PASSWORD: ${env:DB_PASSWORD}
+   TYPEORM_DATABASE: ${env:DB_DATABASE}
+   TYPEORM_PORT: ${env:DB_PORT}
+   TYPEORM_SYNCHRONIZE: false
+   TYPEORM_LOGGING: false
+   TYPEORM_ENTITIES: dist/entity/**/*.js
+
 package:
   individually: true
   excludeDevDependencies: true
@@ -33,44 +44,14 @@ functions:
           method: get
           cors: true
 
-  email-api:
-    handler: dist/src/email-api/handler.handler
-    # layers:
-    #   - arn:aws:lambda:us-east-1:170372878108:layer:common:5
-    events:
-      # - http:
-      #     path: email
-      #     method: get
-      #     cors: true
-      - http:
-          path: email/{proxy+}
-          method: any
-          cors: true
-
   user-api:
     handler: dist/src/user-api/handler.handler
-
-    # layers:
-    #   - arn:aws:lambda:us-east-1:170372878108:layer:common:5
     events:
-      # - http:
-      #     path: user
-      #     method: get
-      #     cors: true
       - http:
           path: user/{proxy+}
           method: any
           cors: true
 
 plugins:
-  # - serverless-localstack
   - serverless-offline
-
-# custom:
-#   localstack:
-#     stages:
-#       - local
-#     host: http://localhost
-#     edgePort: 4566
-#     autostart: true
-
+  - serverless-dotenv-plugin
