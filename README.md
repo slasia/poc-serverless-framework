@@ -51,8 +51,8 @@ Once your service is running with Serverless Offline, you can use Postman to sen
 
 This project includes the following example endpoints that you can test:
 
-- `GET dev//user`
-- `GET dev//user/path`
+- `GET dev/user`
+- `GET dev/user/path`
 - `GET dev/email`
 - `GET dev/email/path`
 
