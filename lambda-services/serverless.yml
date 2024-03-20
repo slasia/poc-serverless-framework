@@ -1,5 +1,5 @@
 org: slasia
-app: poc
+app: poc-serverless-framework
 service: lambda-services
 useDotenv: true
 frameworkVersion: "3"
@@ -7,26 +7,34 @@ frameworkVersion: "3"
 provider:
   name: aws
   runtime: nodejs20.x
+  region: us-east-1
+  iam:
+    role:
+      statements:
+        - Effect: "Allow"
+          Action:
+            - "lambda:InvokeFunction"
+          Resource: "*"
 
-package:
-  individually: true
-  excludeDevDependencies: true
-  patterns:
-    - '!**' 
-    - 'dist/**' 
-    - '!dist/**/*.map' 
-    - '!dist/**/*.ts' 
-    - 'node_modules/**' 
-    - '!*.ts' 
-    - '!*.yml' 
-    - '!test/**' 
-    - '!tests/**' 
-    - '!*.md' 
-    - '!*.json' 
+# package:
+#   individually: true
+#   excludeDevDependencies: true
+#   patterns:
+#     - '!**' 
+#     - 'dist/**' 
+#     - '!dist/**/*.map' 
+#     - '!dist/**/*.ts' 
+#     - 'node_modules/**' 
+#     - '!*.ts' 
+#     - '!*.yml' 
+#     - '!test/**' 
+#     - '!tests/**' 
+#     - '!*.md' 
+#     - '!*.json' 
 
 functions:
   debug-api:
-    handler: dist/debug/handler.handler
+    handler: dist/debug/handler.handler  
     events:
       - http:
           path: debug
@@ -62,6 +70,22 @@ functions:
           method: any
           cors: true
 
+  decode-api:
+    handler: dist/decode-api/handler.handler
+    events: 
+      - http:
+          path: decode
+          method: post
+
+  market-api:
+    handler: dist/market-api/handler.handler
+    events:
+      - http:
+          path: market
+          method: get
+    environment:
+      DECODE_API_FUNCTION_NAME: "lambda-services-dev-decode-api" 
+      
 plugins:
   # - serverless-localstack
   - serverless-offline

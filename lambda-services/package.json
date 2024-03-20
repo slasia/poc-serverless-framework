@@ -5,7 +5,7 @@
   "scripts": {
     "build": "rimraf dist && tsc -p tsconfig.build.json",
     "deploy:local": "sls offline",
-    "start": "npm run build && npm run deploy:local",
+    "start": "nodemon",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "tslint -p tsconfig.json -c tslint.json",
     "test": "jest",
@@ -15,11 +15,17 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@types/pino": "^7.0.5",
+    "aws-sdk": "^2.1579.0",
     "express": "^4.17.1",
+    "http-status-codes": "^2.3.0",
+    "jsonwebtoken": "^9.0.2",
     "pg": "^8.11.3",
+    "pino": "^8.19.0",
     "reflect-metadata": "^0.2.1",
     "serverless-http": "^2.7.0",
-    "typeorm": "^0.3.20"
+    "typeorm": "^0.3.20",
+    "winston": "^3.12.0"
   },
   "devDependencies": {
     "@types/node": "^20.11.24",
