@@ -1,0 +1,6 @@
+{
+    "ext": "ts,yml",
+    "watch": ["src", "serverless.yml"],
+    "exec": "npm run build && npm run deploy:local"
+  }
+  
