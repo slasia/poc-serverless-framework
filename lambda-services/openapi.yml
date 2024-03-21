@@ -1,0 +1,32 @@
+openapi: 3.0.0
+components:
+  schemas:
+    TestUserModel:
+      type: object
+      properties:
+        name:
+          type: string
+        surname:
+          type: string
+        address:
+          type: string
+        id:
+          type: integer
+  securitySchemes: {}
+info:
+  title: My Test API
+  description: Test API
+  version: 1.0.0
+paths:
+  /user/:
+    get:
+      operationId: user-api
+      summary: Obtener usuario de prueba
+      description: Devuelve los detalles de un usuario de prueba
+      responses:
+        '200':
+          description: Detalles del usuario de prueba
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestUserModel'

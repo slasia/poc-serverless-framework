@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "build": "rimraf dist && tsc -p tsconfig.build.json",
-    "deploy:local": "sls offline",
+    "deploy:local": "serverless openapi generate && sls offline",
     "start": "nodemon",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "tslint -p tsconfig.json -c tslint.json",
@@ -40,6 +40,7 @@
     "serverless-dotenv-plugin": "^6.0.0",
     "serverless-localstack": "^1.2.0",
     "serverless-offline": "^13.3.3",
+    "serverless-openapi-documentation": "^0.4.0",
     "serverless-plugin-typescript": "^2.1.5",
     "typescript": "^5.3.3"
   }

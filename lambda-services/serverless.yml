@@ -56,7 +56,7 @@ functions:
           cors: true
 
   user-api:
-    handler: dist/src/user-api/handler.handler
+    handler: dist/user-api/handler.handler
 
     # layers:
     #   - arn:aws:lambda:us-east-1:170372878108:layer:common:5
@@ -66,9 +66,24 @@ functions:
       #     method: get
       #     cors: true
       - http:
-          path: user/{proxy+}
-          method: any
+          path: user/
+          method: get
           cors: true
+          documentation:
+            summary: 'get test users'
+            description: 'get detail test user'
+            pathParams:
+              - name: proxy
+                description: 'Parámetro proxy para la ruta del usuario'
+                required: true
+                schema:
+                  type: string
+            methodResponses:
+              - statusCode: 200
+                responseBody:
+                  description: 'detail user test'
+                responseModels:
+                  application/json: TestUserModel
 
   decode-api:
     handler: dist/decode-api/handler.handler
@@ -89,8 +104,31 @@ functions:
 plugins:
   # - serverless-localstack
   - serverless-offline
+  - serverless-openapi-documentation
 
-# custom:
+
+custom:
+  documentation:
+    version: '1.0.0'
+    title: 'My Test API'
+    description: 'Test API'
+    models:
+      - name: TestUserModel
+        description: 'Modelo de datos para un usuario de prueba'
+        contentType: 'application/json'
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+            surname:
+              type: string
+            address:
+              type: string
+            id:
+              type: integer
+
+
 #   localstack:
 #     stages:
 #       - local
