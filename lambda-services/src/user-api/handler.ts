@@ -5,7 +5,7 @@ const userRouter = express.Router();
 
 // import { DataSource } from 'typeorm';
 
-//TODO: Move the database configuration to another file for reuse 
+//TODO: Move the database configuration to another file for reuse
 // export const AppDataSource = new DataSource({
 //   type: 'postgres',
 //   host: process.env.DB_HOST,
@@ -18,7 +18,6 @@ const userRouter = express.Router();
 //   logging: false,
 // });
 
-
 // // Init connection using TypeORM
 // AppDataSource.initialize().then(() => {
 //   console.log('Data Source has been initialized!');
@@ -26,7 +25,7 @@ const userRouter = express.Router();
 //   console.error('Error during Data Source initialization:', err);
 // });
 
-// Without ORM 
+// Without ORM
 
 // userRouter.get('/database', async (req: any, res: any, next: any) => {
 //   const client = await pool.connect();
@@ -38,10 +37,13 @@ const userRouter = express.Router();
 // });
 
 userRouter.get('/', (req: any, res: any, next: any) => {
-  console.log(process.env.DB_USER);
-  return res.status(200).json({
-    message: 'Hello from user root!',
-  });
+  const testUser = {
+    name: 'Jonh',
+    surname: 'Doe',
+    address: 'Missisipi 2343',
+    id: 1234,
+  };
+  return res.status(200).json(testUser);
 });
 
 userRouter.get('/path', (req: any, res: any, next: any) => {
