@@ -64,6 +64,14 @@ functions:
     environment:
       DECODE_API_FUNCTION_NAME: "lambda-services-dev-decode-api"
 
+  baseApi:
+    handler: dist/base-api/handler.handler
+    events:
+      - http:
+          path: base/
+          method: get
+          cors: true
+
 plugins:
   - serverless-offline
   - serverless-openapi-documentation
