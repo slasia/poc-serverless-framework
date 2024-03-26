@@ -21,11 +21,11 @@ paths:
   /user/:
     get:
       operationId: user-api
-      summary: Obtener usuario de prueba
-      description: Devuelve los detalles de un usuario de prueba
+      summary: get test users
+      description: get detail test user
       responses:
         '200':
-          description: Detalles del usuario de prueba
+          description: detail user test
           content:
             application/json:
               schema:

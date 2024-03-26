@@ -36,14 +36,6 @@ package:
     - '!*.json' 
 
 functions:
-  debug-api:
-    handler: dist/debug/handler.handler
-    events:
-      - http:
-          path: debug
-          method: get
-          cors: true
-
   user-api:
     handler: dist/src/user-api/handler.handler
     events:
